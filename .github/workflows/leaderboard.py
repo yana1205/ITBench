@@ -306,6 +306,35 @@ SAMPLE_DATA = [
     },
 ]
 
+MIGRATED_LEADERBOARDS = [
+    {
+        "agent_type": "CISO",
+        "id": "migrated_leaderboards_001",
+        "github_username_link": "[xinbowu2](https://github.com/xinbowu2)",
+        "github_username_org": "University of Illinois at Urbana-Champaign (UIUC)",
+        "agent": "ciso-agent-expert-rhel9-opa",
+        "incident_type": "Gen-CIS-b-RHEL9-Ansible-OPA",
+        "score": 0.3,
+        "mttr": "PT2M134.247212S",
+        "num_of_passed": 3,
+        "issue_link": "[#12](https://github.com/IBM/ITBench-Leaderboard/issues/12)",
+        "date": "2025-05-02T05:51:40.780591Z",
+    },
+    {
+        "agent_type": "CISO",
+        "id": "migrated_leaderboards_002",
+        "github_username_link": "[yana1205](https://github.com/yana1205)",
+        "github_username_org": "IBM Research - Tokyo",
+        "agent": "pre-release-agent-2025-0428",
+        "incident_type": "Gen-CIS-b-K8s-Kyverno",
+        "score": 0.2,
+        "mttr": "PT1M49.311372S",
+        "num_of_passed": 2,
+        "issue_link": "[#9](https://github.com/IBM/ITBench-Leaderboard/issues/9)",
+        "date": "2025-04-28T23:08:42.871251Z",
+    },
+]
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Print IT Bench leaderboard")
@@ -350,6 +379,7 @@ if __name__ == "__main__":
         if "num_of_passed" not in item:
             item["num_of_passed"] = int(item["score"] * 10)  # treate number of pass as decile of score
 
+    leaderboard = leaderboard + MIGRATED_LEADERBOARDS
     leaderboard = sorted(leaderboard, key=lambda x: x["score"], reverse=True)
     leaderboard_ciso = [x for x in leaderboard if x["agent_type"] == "CISO"]
     leaderboard_sre = [x for x in leaderboard if x["agent_type"] == "SRE"]
