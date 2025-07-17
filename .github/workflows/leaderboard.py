@@ -214,7 +214,6 @@ def build_sre_table(leaderboard) -> str:
 
     texts = []
     texts.append("## 📊 IT Bench Leaderboard (SRE)")
-    texts.append(header)
     header = f"""\
 This leaderboard shows the performance of agents on SRE-related IT automation scenarios.  
 For details on how to participate or interpret results, see the [README](../main/README.md).
@@ -224,6 +223,7 @@ For details on how to participate or interpret results, see the [README](../main
 - *Diagnosis - NTAM Fault Propagation*: NTAM Average Fault Localisation
 - *% Resolved*: Percentage of incidents repaired (mitigation efficiency)
 """
+    texts.append(header)
     texts.append(f"\n\nUpdated on: {get_timestamp()}\n\n")
     texts.append("---")
     texts.append("| " + " | ".join(headers) + " |")
@@ -379,7 +379,7 @@ if __name__ == "__main__":
         if "num_of_passed" not in item:
             item["num_of_passed"] = int(item["score"] * 10)  # treate number of pass as decile of score
 
-    leaderboard = leaderboard + MIGRATED_LEADERBOARDS
+    # leaderboard = leaderboard + MIGRATED_LEADERBOARDS
     leaderboard = sorted(leaderboard, key=lambda x: x["score"], reverse=True)
     leaderboard_ciso = [x for x in leaderboard if x["agent_type"] == "CISO"]
     leaderboard_sre = [x for x in leaderboard if x["agent_type"] == "SRE"]
