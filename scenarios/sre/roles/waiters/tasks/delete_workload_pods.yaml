@@ -16,13 +16,26 @@
     fail_msg: Unable to find workload. Please ensure that workload exists.
     success_msg: Workload verified.
 
-- name: Scale workload
+- name: Scale workload to 0 replicas
   kubernetes.core.k8s_scale:
     api_version: "{{ waiters_workload.resources[0].apiVersion }}"
     kind: "{{ waiters_workload.resources[0].kind }}"
     kubeconfig: "{{ waiters_cluster.kubeconfig }}"
     name: "{{ waiters_workload.resources[0].metadata.name }}"
     namespace: "{{ waiters_workload.resources[0].metadata.namespace }}"
-    replicas: "{{ waiter_args.replicas }}"
+    replicas: 0
     wait: true
-    wait_timeout: 60
+    wait_timeout: 120
+
+# NOTE: Since the workload may not be in a working state, the
+#       following action does not wait for a success.
+
+- name: Scale workload to original replica count
+  kubernetes.core.k8s_scale:
+    api_version: "{{ waiters_workload.resources[0].apiVersion }}"
+    kind: "{{ waiters_workload.resources[0].kind }}"
+    kubeconfig: "{{ waiters_cluster.kubeconfig }}"
+    name: "{{ waiters_workload.resources[0].metadata.name }}"
+    namespace: "{{ waiters_workload.resources[0].metadata.namespace }}"
+    replicas: "{{ waiters_workload.resources[0].spec.replicas }}"
+    wait: false
