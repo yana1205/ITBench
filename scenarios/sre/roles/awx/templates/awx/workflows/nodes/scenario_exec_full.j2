@@ -122,6 +122,8 @@
     name: Handover-To-Agent
     type: job_template
 - identifier: node-run-agent
+  extra_data:
+    scenario_id: {{ workflow_configuration[1][0] }}
   related:
     always_nodes:
       - identifier: node-handback-from-agent

@@ -8,11 +8,25 @@ components:
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 1654
-{% if applications_cluster.platform == "openshift" %}
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
   ad:
+{% if applications_cluster.platform == "openshift" %}
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
+    resources:
+      limits:
+        cpu: 150m
+        memory: 512Mi
+      requests:
+        cpu: 50m
+        memory: 256Mi
 {% if applications_cluster.platform == "openshift" %}
   cart:
     podAnnotations:
@@ -38,11 +52,16 @@ components:
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
-{% if applications_cluster.platform == "openshift" %}
   fraud-detection:
+{% if applications_cluster.platform == "openshift" %}
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        memory: 256Mi
 {% if applications_cluster.platform == "openshift" %}
   frontend:
     podAnnotations:
@@ -61,11 +80,16 @@ components:
     podSecurityContext:
       runAsNonRoot: true
       runAsUser: 101
-{% if applications_cluster.platform == "openshift" %}
   kafka:
+{% if applications_cluster.platform == "openshift" %}
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
+    resources:
+      limits:
+        memory: 1024Mi
+      requests:
+        memory: 512Mi
   load-generator:
     envOverrides:
       - name: LOCUST_BROWSER_TRAFFIC_ENABLED
@@ -103,21 +127,31 @@ components:
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
-{% if applications_cluster.platform == "openshift" %}
   product-catalog:
+{% if applications_cluster.platform == "openshift" %}
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
+    resources:
+      limits:
+        memory: 160Mi
 {% if applications_cluster.platform == "openshift" %}
   quote:
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
-{% if applications_cluster.platform == "openshift" %}
   recommendation:
+{% if applications_cluster.platform == "openshift" %}
     podAnnotations:
       openshift.io/required-scc: restricted-v2
 {% endif %}
+    resources:
+      limits:
+        cpu: 200m
+        memory: 512Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
 {% if applications_cluster.platform == "openshift" %}
   shipping:
     podAnnotations:
