@@ -20,7 +20,13 @@ jobs:
           echo "${{ github.event.issue.body }}" > issue_body.txt
           python ./.github/workflows/parse_issue.py < issue_body.txt > parsed_output.json
           echo "payload=$(cat parsed_output.json)" >> $GITHUB_OUTPUT
+      - name: Get Agent Details
+        id: get-agent-config
+        run : |
+           agent_id="aaabbb"
+           echo "Agent ID: $agent_id"
 
+           echo "agent_id=$agent_id" >> "$GITHUB_OUTPUT"
 
       - name: register-benchmark
         id: register-benchmark
