@@ -1,0 +1,17 @@
+name: Test GITHUB_ENV propagation
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set TRIGGER
+        run: echo "TRIGGER=schedule" >> $GITHUB_ENV
+      - name: "Read TRIGGER (no env: block, like the real workflow)"
+        run: |
+          echo "TRIGGER is: [$TRIGGER]"
+          if [[ "$TRIGGER" == "schedule" ]]; then
+            echo "PASS: variable propagated across steps"
+          else
+            echo "FAIL: variable is empty/unavailable"
+          fi
